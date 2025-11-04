@@ -1,58 +1,43 @@
-#src/task_tracker/manager.py
+#src/task_tracker/manager.py 
 
 from datetime import datetime
-from rich.console import Console 
-from rich.table import Table 
-
-console = Console()
 
 class TaskManager:
-    "Handles in-memory task storage and operations."
+    """Handles in-memory taks storage and operations"""
     def __init__(self):
         self.tasks = []
-
-    def add_tasks(self, title, caterogy, due_date, priority):
-        "add a new task to the list."
+    
+    def add_task(self, title, catergory, due_date, priority):
+        """Add a new task to the list""" 
+        #try to partse the date to ensure correct format
         try:
             due_date_obj = datetime.strptime(due_date, "%Y-%m-%d")
         except ValueError:
-            console.print("[red]❌ Invalid date format. Use YYYY-MM-DD.[/red]")
+            print("Invalid date format. Use YYYY-MM-DD")
             return
 
-        task = {
-            "title": title,
-            "category": category,
-            "due_date": due_date_obj,
+        tasks = {
+            "title" : title,
+            "catergory" : catergory,
+            "due_date" : due_date_obj,
             "priority" : priority,
             "completed" : False
         }
-        
-        self.tasks.append(task)
-        console.print(f"[green]✅ Task '{title}' added successfully![/green]")
 
+        self.tasks.append(task)
+        print(f"Task '{title}' added succesfully!")
+
+    
     def view_tasks(self):
-        """Display all tasks in a table """
+        """Display all tasks in a simple table."""
         if not self.tasks:
-            console.print("[yellow]No tasks available yet![/yellow]")
+            print("No taks available yet!")
             return
 
-        table = Table(title = "your Tasks", title_style = "bold cyan")
-        table.add_column("No", justify = "right", style "bold white")
-        table.add_column("Title", style = "bold cyan")
-        table.add_column("Category", style = "bold yellow")
-        table.add_column("Due Date", style="bold magenta")
-        table.add_column("Priority", style="bold green")
-        table.add_column("Status", style="bold red")
+        print("\n --Your Tasks ---")
+        print(f"{'No.':<5}{'Title':<25}{'Category':<15}{'Due Date':<12}{'Priority':<10}{'Status':<10}")
+        print("-" * 80)
 
-        for i, t in enumerate(self.tasks, start = 1):
-            status = "✅ Done" if t["completed"] else "⏳ Pending"
-            table.add_row(
-                str(i),
-                t["title"],
-                t["category"],
-                t["due_date"].strftime("%Y-%m-%d"),
-                t["priority"].capitalize(),
-                status    
-
-            )
-            console.print(table)
+        for i, tasks in enumerate(self.tasks, start = 1):
+            status = "Done" if task["completed"] else "Pending"
+            print(f"{i:<5}{task['title']:<25}{task['category']:<15}{task['due_date'].strftime('%Y-%m-%d'):<12}{task['priority']:<10}{status:<10}")
