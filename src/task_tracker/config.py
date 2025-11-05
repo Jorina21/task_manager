@@ -1,4 +1,4 @@
-#holds constandts that might change later 
+#holds constants that might change later 
 
 DATA_FILE = "tasks.json"
 

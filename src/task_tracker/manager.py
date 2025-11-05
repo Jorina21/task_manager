@@ -14,7 +14,7 @@ class TaskManager:
             due_date_obj = datetime.strptime(due_date, "%Y-%m-%d")
         except ValueError:
             print("Invalid date format. Use YYYY-MM-DD")
-            return
+            return #cancels function call and goes back to the menu of choices.
 
         tasks = {
             "title" : title,
@@ -39,5 +39,5 @@ class TaskManager:
         print("-" * 80)
 
         for i, tasks in enumerate(self.tasks, start = 1):
-            status = "Done" if task["completed"] else "Pending"
+            status = "Done" if task["completed"] else "Pending" #ternary expression (one line if statement)
             print(f"{i:<5}{task['title']:<25}{task['category']:<15}{task['due_date'].strftime('%Y-%m-%d'):<12}{task['priority']:<10}{status:<10}")
