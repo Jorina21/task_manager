@@ -7,5 +7,6 @@ MENU_OPTIONS = {
     "1": "Add Task",
     "2": "View Tasks",
     "3": "Delete Task",
-    "4": "Exit"
+    "4": "Mark Task Completed",
+    "5": "Exit"
 }

@@ -30,3 +30,30 @@ def handle_add_task():
 def handle_view_tasks():
     """Display all task."""
     manager.view_tasks()
+
+
+def handle_delete_task():
+    """Ask user for a task to be deleted. """
+    manager.view_tasks()
+    if not manager.tasks:
+        return
+    
+    try:
+        num = int(input("Enter a valid number. "))
+        manager.delete_task(num)
+    except ValueError:
+        print("Please enter a valid number.")
+
+
+def handle_mark_complete():
+    """ask user to a task number and mark it complete."""
+    manager.view_tasks()
+    
+    if not manager.tasks:
+        return
+    
+    try:
+        num = int(input("Enter the task number to mark complete:"))
+        manager.mark_task_complete(num)
+    except ValueError:
+        print("Please enter a valid number.")

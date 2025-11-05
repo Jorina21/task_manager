@@ -1,5 +1,5 @@
-from src.task_tracker.cli import display_menu, get_user_choice,  handle_add_task, handle_view_tasks
-from src.task_tracker.config import MENU_OPTIONS
+from src.task_tracker.cli import (display_menu, get_user_choice,  handle_add_task, handle_view_tasks, handle_delete_task, handle_mark_complete,)
+#from src.task_tracker.config import MENU_OPTIONS
 
 def main():
     #the main loop
@@ -8,12 +8,18 @@ def main():
         choice = get_user_choice()
 
         if choice == "1":
-            print("Add Task feature coming soon!")
+            #Add Task
+            handle_add_task()
         elif choice == "2":
-            print("View Tasks feature coming soon!")
+            #View Tasks 
+            handle_view_tasks()
         elif choice == "3":
-            print("Delete Task feature coming soon!")
+            # Delete Task 
+            handle_delete_task()
         elif choice == "4":
+            # mark complete
+            handle_mark_complete()
+        elif choice == "5":
             print("Goodbye!")
             break
         else:
