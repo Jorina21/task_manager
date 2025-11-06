@@ -2,6 +2,9 @@
 
 DATA_FILE = "tasks.json"
 
+#Date format used throughout the app 
+DATE_FORMAT = "%Y-%m-%d"
+
 # Menu options 
 MENU_OPTIONS = {
     "1": "Add Task",
