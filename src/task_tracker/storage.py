@@ -51,4 +51,24 @@ def load_task():
 
 
 def save_tasks(tasks): 
+    """
+    Save the given list of task dictionalries to the json file
+    Convert date time objects to string 
+    """
     
+    data_to_save = []
+
+    for task in tasks: 
+        #convert datetime to string so json accepts 
+        due_date_str = task["due_date"].strftime(DATE_FORMAT)
+
+        data_to_save.append({
+            "title": task["title"],
+            "catergory": task["catergory"],
+            "due_date" : due_date_str,
+            "priority" : task["priority"],
+            "completed" : task["completed"],
+        })
+
+    with open(DATA_FILE, "w", encoding = "utf-8") as f:
+        json.dump(data_to_save, f, indent = 2)
