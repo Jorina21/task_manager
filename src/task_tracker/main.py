@@ -1,4 +1,10 @@
-from src.task_tracker.cli import (display_menu, get_user_choice,  handle_add_task, handle_view_tasks, handle_delete_task, handle_mark_complete,)
+from src.task_tracker.cli import (display_menu,
+ get_user_choice,
+   handle_add_task,
+    handle_view_tasks,
+     handle_delete_task,
+      handle_mark_complete,
+)
 #from src.task_tracker.config import MENU_OPTIONS
 
 def main():

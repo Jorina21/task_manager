@@ -1,6 +1,9 @@
 #src/task_tracker/cli.py
 from src.task_tracker.config import MENU_OPTIONS  
 # you can import function using the dile and function name 
+from src.task_tracker.manager import TaskManager
+
+manager = TaskManager()
 
 def display_menu():
     """Display the main menu options."""
@@ -14,9 +17,6 @@ def get_user_choice():
     choice = input("Select an option: ").strip()
     return choice
 
-from src.task_tracker.manager import TaskManager
-
-manager = TaskManager()
 
 def handle_add_task():
     """Ask user for details and add a new task."""
@@ -54,6 +54,6 @@ def handle_mark_complete():
     
     try:
         num = int(input("Enter the task number to mark complete:"))
-        manager.mark_task_complete(num)
+        manager.mark_task_completed(num)
     except ValueError:
         print("Please enter a valid number.")

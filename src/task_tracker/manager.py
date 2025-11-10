@@ -1,30 +1,33 @@
 #src/task_tracker/manager.py 
 
 from datetime import datetime
+from src.task_tracker.config import DATE_FORMAT
+from src.task_tracker.storage import load_task, save_tasks
 
 class TaskManager:
     """Handles in-memory taks storage and operations"""
     def __init__(self):
-        self.tasks = []
+        self.tasks = load_task()
     
-    def add_task(self, title, catergory, due_date, priority):
+    def add_task(self, title, category, due_date, priority):
         """Add a new task to the list""" 
         #try to partse the date to ensure correct format
         try:
-            due_date_obj = datetime.strptime(due_date, "%Y-%m-%d")
+            due_date_obj = datetime.strptime(due_date, DATE_FORMAT)
         except ValueError:
             print("Invalid date format. Use YYYY-MM-DD")
             return #cancels function call and goes back to the menu of choices.
 
         tasks = {
             "title" : title,
-            "catergory" : catergory,
+            "category" : category,
             "due_date" : due_date_obj,
             "priority" : priority,
             "completed" : False
         }
 
         self.tasks.append(tasks)
+        save_tasks(self.tasks)
         print(f"Task '{title}' added succesfully!")
 
     
@@ -40,7 +43,7 @@ class TaskManager:
 
         for i, task in enumerate(self.tasks, start = 1):
             status = "Done" if task["completed"] else "Pending" #ternary expression (one line if statement)
-            print(f"{i:<5}{task['title']:<25}{task['catergory']:<15}{task['due_date'].strftime('%Y-%m-%d'):<12}{task['priority']:<10}{status:<10}")
+            print(f"{i:<5}{task['title']:<25}{task['category']:<15}{task['due_date'].strftime('%Y-%m-%d'):<12}{task['priority']:<10}{status:<10}")
         
     
     def delete_task(self, task_number):
@@ -56,17 +59,17 @@ class TaskManager:
             return
         
         removed_task = self.tasks.pop(task_number - 1)
-
+        save_tasks(self.tasks)
         print(f"Task '{removed_task['title']}' deleted succesfully.")
 
 
     def mark_task_completed(self, task_number):
         """Mark a task as completed."""
         if not self.tasks:
-            print("NO tasks availble to update")
+            print("No tasks availble to update")
             return
         
-        if task_number > 1 or task_number > len(self.tasks):
+        if task_number < 1 or task_number > len(self.tasks):
             print("Invalid task number.")
             return 
         
@@ -76,4 +79,5 @@ class TaskManager:
             print(f"Task '{task['title']}' is already marked as complte.")
         else:
             task['completed'] = True
+            save_tasks(self.tasks)
             print(f"Task '{task['title']}' marked as complete!")

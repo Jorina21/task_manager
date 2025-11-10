@@ -2,7 +2,7 @@
 
 import json 
 from datetime import datetime 
-from task_tracker.config import DATA_FILE, DATE_FORMAT
+from src.task_tracker.config import DATA_FILE, DATE_FORMAT
 
 def load_task(): 
     """
@@ -13,41 +13,42 @@ def load_task():
 
     try:
         with open(DATA_FILE, "r", encoding = "utf - 8") as f: 
-            raw_data - json.load(f)
+            raw_data = json.load(f)
 
-        except FileNotFoundError:
-            # no file cread --> start with empty task list 
+    except FileNotFoundError:
+            # no file created --> start with empty task list 
             return []
         
-        except json.JSONDecodeError:
+    except json.JSONDecodeError:
             #file is corrupted or empty --> start fresh 
             print("Warning: tasks.json is not valid JSON. Starting with an empty task list")
             return[]
 
 
 
-        tasks = [] 
-        for item in raw_data: 
-            try:
+    tasks = [] 
+
+    for item in raw_data: 
+        try:
                 due_date_str = item["due_date"]
                 due_date_obj = datetime.strptime(due_date_str, DATE_FORMAT)
         
-            except (keyError, ValueError):
+        except (keyError, ValueError):
                 #skip tasks with invalid or missing dates 
                 print(f"Warning: Skipping task with invalid date: {item}")
                 continue
 
 
-            task = {
+        task = {
                 "title": item.get("title", ""),
-                "category" : item.get("catergory", ""),
+                "category" : item.get("category", ""),
                 "due_date" : due_date_obj,
                 "priority" : item.get("priority", "medium"),
                 "completed" : item.get("completed", False), 
             }
-            tasks.append(task)
+        tasks.append(task)
 
-        return tasks
+    return tasks
 
 
 def save_tasks(tasks): 
@@ -64,7 +65,7 @@ def save_tasks(tasks):
 
         data_to_save.append({
             "title": task["title"],
-            "catergory": task["catergory"],
+            "category": task["category"],
             "due_date" : due_date_str,
             "priority" : task["priority"],
             "completed" : task["completed"],
