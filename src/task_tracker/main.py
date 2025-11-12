@@ -31,5 +31,6 @@ def main():
         else:
             print("Invalid option. Please try again.")
 
+#main guard: only run this file if its being exucted indipendtely now when imported.
 if __name__ == "__main__":
     main()

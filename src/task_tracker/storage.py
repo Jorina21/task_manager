@@ -6,7 +6,7 @@ from src.task_tracker.config import DATA_FILE, DATE_FORMAT
 
 def load_task(): 
     """
-    Load taks from the JSON file in config.py
+    Load tasks from the JSON file in config.py
     Return a list of task dictionaries
     If the file doesnt exist or is invalid, returns a empty list.
     """
